@@ -1,0 +1,11 @@
+2025-11-04T18:55:44.684 - INFO - Drift test was performed. Success.
+2026-03-13T12:23:57.963 - INFO - Preaging was performed. "meas_parallel.py_2026-03-13_12-23-57.log"
+2026-03-15T21:56:56.923 - INFO - Temperature compensation was performed. "meas_parallel.py_2026-03-15_21-56-56.log"
+2026-03-16T14:55:24.035 - INFO - Cube calibration was performed. "meas_parallel.py_2026-03-16_14-55-24.log"
+2026-03-16T15:02:48.359 - INFO - Rotating plate calibration was performed. alpha_plate=  0°, l_crankarm = 0.10, "meas_parallel.py_2026-03-16_15-02-48.log"
+2026-05-09T12:25:35.179 - INFO - Rotating plate calibration was performed. alpha_plate= 30°, l_crankarm = 0.20, "meas_parallel.py_2026-05-09_12-25-35.log"
+2026-05-09T12:37:03.209 - INFO - Rotating plate calibration was performed. alpha_plate= 30°, l_crankarm = 0.20, "meas_parallel.py_2026-05-09_12-37-03.log"
+2026-05-09T12:50:23.957 - INFO - Cube calibration was performed. "meas_parallel.py_2026-05-09_12-50-23.log"
+2026-05-09T16:12:24.135 - INFO - Force calibration was performed. 3 PCOs, 3 levels. "force_calib_combined_2026-05-09_16-26-47.log"
+2026-05-09T16:49:26.981 - INFO - Temperature compensation was performed. "meas_parallel.py_2026-05-09_16-49-26.log"
+2026-05-10T16:32:59.998 - INFO - Rotating plate calibration was performed. alpha_plate=  0°, l_crankarm = 0.20, "meas_parallel.py_2026-05-10_16-32-59.log"

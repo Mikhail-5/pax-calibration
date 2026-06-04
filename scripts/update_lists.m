@@ -1,7 +1,7 @@
 clc; clear all;
 tableData = ID2MAC();
 clc;
-fid1 = fopen("pedals_by_ID.md","w");
+fid1 = fopen("../pedals_by_ID.md","w");
 tableData = sortrows(tableData, "ID");
 
 for k = 1:height(tableData)
@@ -13,7 +13,7 @@ fclose(fid1);
 
 tableData = sortrows(tableData, "MAC");
 
-fid2 = fopen("pedals_by_MAC.md","w");
+fid2 = fopen("../pedals_by_MAC.md","w");
 for k = 1:height(tableData)
     id = tableData.ID(k);
     mac = tableData.MAC(k);

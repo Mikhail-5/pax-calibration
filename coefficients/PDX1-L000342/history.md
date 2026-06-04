@@ -10,3 +10,4 @@
 2026-05-09T16:12:24.135 - INFO - Force calibration was performed. 3 PCOs, 3 levels. "force_calib_combined_2026-05-09_16-26-47.log"
 2026-05-09T16:49:26.981 - INFO - Temperature compensation was performed. "meas_parallel.py_2026-05-09_16-49-26.log"
 2026-05-10T16:32:59.998 - INFO - Rotating plate calibration was performed. alpha_plate=  0°, l_crankarm = 0.20, "meas_parallel.py_2026-05-10_16-32-59.log"
+

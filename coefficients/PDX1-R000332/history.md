@@ -5,3 +5,4 @@
 2026-05-09T12:50:23.957 - INFO - Cube calibration was performed. "meas_parallel.py_2026-05-09_12-50-23.log"
 2026-05-09T14:59:14.018 - INFO - Force calibration was performed. 3 PCOs, 3 levels. "meas_axles_and_GSV.py_2026-05-09_14-59-14.log"
 2026-05-09T16:49:26.981 - INFO - Temperature compensation was performed. "meas_parallel.py_2026-05-09_16-49-26.log"
+

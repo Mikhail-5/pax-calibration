@@ -1,3 +1,4 @@
+```
 2025-11-07T13:33:12.475 - INFO - Drift test was performed. Success.
 2026-05-09T12:25:35.179 - INFO - Rotating plate calibration was performed. alpha_plate=  0°, l_crankarm = 0.20, "meas_parallel.py_2026-05-09_12-25-35.log"
 2026-05-09T12:37:03.209 - INFO - Rotating plate calibration was performed. alpha_plate=  0°, l_crankarm = 0.20, "meas_parallel.py_2026-05-09_12-37-03.log"

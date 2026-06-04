@@ -1,3 +1,4 @@
+```
 2026-02-04T21:53:39.499 - INFO - Preaging was performed. "meas_parallel.py_2026-02-04_21-53-39.log"
 2026-02-04T21:53:39.499 - INFO - Low-temperature drift during preaging was <3 uV 
 2026-02-09T11:21:43.665 - INFO - Temperature compensation was performed. "thermal_calib_2026-02-09_11-21-43.log"

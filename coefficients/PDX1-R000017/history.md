@@ -1,3 +1,4 @@
+```
 2026-02-04T21:53:39.499 - INFO - Preaging was performed. No logfile.
 2026-02-09T11:21:43.665 - INFO - Temperature compensation was performed. "thermal_calib_2026-02-09_11-21-43.log"
 2026-02-10T10:42:51.483 - INFO - Rotating plate calibration was performed. alpha_plate=  0°, l_crankarm = 0.15, "rotplateHor100Hz_2026-02-10_10-42-51.log"

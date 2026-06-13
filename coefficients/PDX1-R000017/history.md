@@ -8,4 +8,3 @@
 2026-02-10T16:11:34.465 - INFO - Firmware version '01.01.00/01/001856' didn't fall into fail-safe. Event predates this log entry.
 2026-02-10T16:11:34.465 - INFO - Firmware was updated to version '01.01.00/01/001856'. Event predates this log entry.
 2026-02-11T14:36:52.788 - INFO - Rotating plate calibration was performed. alpha_plate=180°, l_crankarm = 0.15, "meas_parallel.py_2026-02-11_14-36-52.log".
-

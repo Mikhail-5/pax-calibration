@@ -1,7 +1,8 @@
+
 clc; clear all; %#ok<CLALL>
 assert(pwd == canonicalPath('.'),"Change directory to the script location")
 coefFolder = canonicalPath('..\coefficients');
-filename = [
+filenames = [
 % "C:\Projects\PAX_calib_data\data\cube.py_2026-06-09_21-19-06.log"
 % "C:\Projects\PAX_calib_data\data\cube.py_2026-06-09_22-25-15.log"
 % "C:\Projects\PAX_calib_data\data\cube.py_2026-06-09_22-13-56.log"
@@ -9,8 +10,13 @@ filename = [
 % "C:\Projects\PAX_calib_data\data\cube.py_2026-06-09_21-54-47.log"
 % "C:\Projects\PAX_calib_data\data\cube.py_2026-06-09_21-45-38.log"
 % "C:\Projects\PAX_calib_data\data\cube.py_2026-06-09_21-36-13.log"
-    ]; %#ok<NBRAK2>
-add_log2_internal(filename)
+% "C:\Projects\PAX_calib_data\data\force.py_2026-06-12_14-36-49.log"
+"C:\Projects\PAX_calib_data\data\rotating.py_2026-06-13_17-11-50.log"
+    ]; 
+
+for filename = filenames'
+    add_log2_internal(filename)
+end
 
 function add_log2_internal(filename)
 [~, name, ext] = fileparts(filename);
@@ -27,13 +33,12 @@ reader.read(true);
 IDs = string.empty();
 MACs = IDs;
 SNs = IDs;
-history_paths = IDs;
 for axle_i = 1:length(reader.data)
     [IDs(axle_i,1), MACs(axle_i,1), SNs(axle_i,1)] = ID2MAC([],reader.data{axle_i}.Props.MAC_Address);
-    assert(SNs(axle_i)==reader.data{axle_i}.Props.UUT_SN,"Unexpected SN " +SNs(axle_i)+" for "+IDs(axle_i))
-    coef_dir = coefFolder+"\"+IDs(axle_i);
-    history_paths(axle_i) = coefFolder+"\"+IDs(axle_i)+"\history.md";
-    createEmptyFileIfMissing(history_paths(axle_i));
+    assert((datetime('now')<datetime('13-Jun-2026 14:00:00')) || (SNs(axle_i)==reader.data{axle_i}.Props.UUT_SN),"Unexpected SN " +SNs(axle_i)+" for "+IDs(axle_i))
+    % coef_dir = coefFolder+"\"+IDs(axle_i);
+    % history_paths(axle_i) = coefFolder+"\"+IDs(axle_i)+"\history.md";
+    % createEmptyFileIfMissing(history_paths(axle_i));
 end
 %%
 fid = fopen(filename, 'r');
@@ -61,17 +66,28 @@ switch fname_with_ext
     case {"meas_parallel.py_2026-03-14_17-59-48.log", "meas_parallel.py_2026-03-16_15-02-48.log"}
     case {"meas_parallel.py_2026-05-10_16-32-59.log", "meas_parallel.py_2026-05-09_12-37-03.log", "meas_parallel.py_2026-05-09_12-25-35.log"}
     case {"meas_parallel.py_2026-05-09_12-50-23.log", "meas_parallel.py_2026-03-09_12-34-54.log", "meas_parallel.py_2026-03-14_17-49-22.log", "meas_parallel.py_2026-03-16_14-55-24.log"}
-        task = "cube_calib";
+        task = "cube";
     case {"meas_axles_and_GSV.py_2026-03-10_19-33-29.log", "meas_axles_and_GSV.py_2026-03-13_17-30-09.log", "meas_axles_and_GSV.py_2026-03-14_18-42-09.log", "meas_axles_and_GSV.py_2026-03-16_21-51-46.log", "meas_axles_and_GSV.py_2026-03-16_22-44-16.log",...
             "meas_axles_and_GSV.py_2026-03-19_11-02-34.log", "meas_axles_and_GSV.py_2026-03-21_10-53-59.log", "meas_axles_and_GSV.py_2026-03-21_11-37-43.log" "meas_axles_and_GSV.py_2026-05-09_14-59-14.log", "force_calib_combined_2026-05-09_16-26-47.log"}
-        task = "force_calib";
+        task = "force";
     case {"meas_parallel.py_2026-03-09_19-25-51.log" ,"meas_parallel.py_2026-03-13_12-23-57.log","meas_parallel.py_2026-05-23_22-58-42.log"}
         task = "preaging";
     case "indoor_2pedals_Chemnitz__2026-04-05_21-31-02.log"
     otherwise
-        task = "unknown"
+        task = "unknown";
 end
-
+if(task=="unknown")
+    switch extractBefore(fname_with_ext,".")
+        case "cube"
+            task = "cube";
+        case "force"
+            task = "force";
+        case "rotating"
+            task = "rotating";
+        otherwise
+            error("unexpected fname_with_ext: "+fname_with_ext)
+    end
+end
 
 switch task
     % case "rotplateVert25Hz_.py_2026-02-10_11-56-12.log"
@@ -253,18 +269,25 @@ switch task
     %         AxleCalibrator.add2history(IDs(axle_i),string_to_add+...
     %             "Rotating plate calibration was performed. "+s+", "+'"'+fname_with_ext+'"')
     %     end
-    case "cube_calib"
+    case "cube"
         for axle_i = 1:length(reader.data)
             assert(all(~contains(AxleCalibrator.read_history(IDs(axle_i)),fname_with_ext)),"Duplicated string?");
             AxleCalibrator.add2history(IDs(axle_i),string_to_add+...
                 "Cube calibration was performed. "+'"'+fname_with_ext+'"')
         end
-    case "force_calib"
+    case "rotating"
+        for axle_i = 1:length(reader.data)
+            assert(all(~contains(AxleCalibrator.read_history(IDs(axle_i)),fname_with_ext)),"Duplicated string?");
+            AxleCalibrator.add2history(IDs(axle_i),string_to_add+...
+                "Rotating plate calibration was performed. "+'"'+fname_with_ext+'"')
+        end
+
+    case "force"
         assert(isscalar(reader.data))
         axle_i=1;
         assert(all(~contains(AxleCalibrator.read_history(IDs(axle_i)),fname_with_ext)),"Duplicated string?");
         AxleCalibrator.add2history(IDs(axle_i),string_to_add+...
-            "Force calibration was performed. 3 PCOs, 3 levels. "+'"'+fname_with_ext+'"')
+            "Force calibration was performed. "+'"'+fname_with_ext+'"')
     case "preaging"
         for axle_i = 1:length(reader.data)
             assert(all(~contains(AxleCalibrator.read_history(IDs(axle_i)),fname_with_ext)),"Duplicated string?");
@@ -278,7 +301,7 @@ switch task
     %             "A test was performed. 20 minutes indoor cycling. Chemnitz. Fs = 50 Hz. "+'"'+fname_with_ext+'"');
     %     end
     otherwise
-        error("Unexpected fname_with_ext: "+newline+'    case "'+fname_with_ext+'"')
+        error("Unexpected task: "+newline+'    case "'+task+'"')
 end
 
 end

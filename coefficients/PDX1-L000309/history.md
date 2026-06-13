@@ -9,4 +9,3 @@
 2026-03-01T17:08:38.286 - INFO - Vertical rotation test was performed. alpha_plate=120°, l_crankarm = 0.20, "meas_parallel.py_2026-03-01_17-08-38.log"
 2026-03-01T18:09:26.570 - INFO - Cube calibration was performed. "cube_calib_2026-03-01_18-09-26.log"
 2026-03-05T17:56:06.749 - INFO - Problem observed - Axle disconnected after ~30 seconds. "meas_parallel.py_2026-03-05_18-00-14.log", "meas_parallel.py_2026-03-05_17-57-27.log", "meas_parallel.py_2026-03-05_17-56-06.log"
-

@@ -11,4 +11,3 @@
 2026-03-13T17:30:09.950 - INFO - Force calibration was performed. 3 PCOs, 3 levels. "meas_axles_and_GSV.py_2026-03-13_17-30-09.log"
 2026-03-16T12:00:00.000 - INFO - Preaging was performed. No logfile. Event predates this log entry.
 2026-03-20T11:04:52.330 - INFO - Temperature compensation was performed. "meas_parallel.py_2026-03-20_11-04-52.log"
-

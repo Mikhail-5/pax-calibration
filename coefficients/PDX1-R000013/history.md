@@ -11,4 +11,3 @@
 2026-03-01T17:08:38.286 - INFO - Vertical rotation test was performed. alpha_plate=180°, l_crankarm = 0.20, "meas_parallel.py_2026-03-01_17-08-38.log"
 2026-03-01T18:09:26.570 - INFO - Cube calibration was performed. "cube_calib_2026-03-01_18-09-26.log"
 2026-03-16T12:00:00.000 - INFO - Preaging was performed. No logfile. Event predates this log entry.
-

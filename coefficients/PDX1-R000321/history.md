@@ -5,4 +5,3 @@
 2026-03-16T14:55:24.035 - INFO - Cube calibration was performed. "meas_parallel.py_2026-03-16_14-55-24.log"
 2026-03-16T15:02:48.359 - INFO - Rotating plate calibration was performed. alpha_plate=180°, l_crankarm = 0.20, "meas_parallel.py_2026-03-16_15-02-48.log"
 2026-03-16T21:51:46.437 - INFO - Force calibration was performed. 3 PCOs, 3 levels. "meas_axles_and_GSV.py_2026-03-16_21-51-46.log"
-

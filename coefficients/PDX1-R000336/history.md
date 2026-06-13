@@ -5,4 +5,3 @@
 2026-05-09T12:37:03.209 - INFO - Rotating plate calibration was performed. alpha_plate=240°, l_crankarm = 0.20, "meas_parallel.py_2026-05-09_12-37-03.log"
 2026-05-09T12:50:23.957 - INFO - Cube calibration was performed. "meas_parallel.py_2026-05-09_12-50-23.log"
 2026-05-09T16:49:26.981 - INFO - Temperature compensation was performed. "meas_parallel.py_2026-05-09_16-49-26.log"
-

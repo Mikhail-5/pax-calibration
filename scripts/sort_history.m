@@ -28,7 +28,7 @@ for k = 1:numel(files)
     body = sortedBody;
 
     % rebuild file
-    newLines = ["```"; body; ""];
+    newLines = ["```"; body];
 
     fid = fopen(fullPath, "w");
     fprintf(fid, "%s\n", newLines);

@@ -15,4 +15,3 @@
 2026-03-10T19:33:29.105 - INFO - Force calibration was performed. 3 PCOs, 3 levels. "meas_axles_and_GSV.py_2026-03-10_19-33-29.log"
 2026-03-12T19:39:08.645 - INFO - Quick test was performed. Some samples are stuck (are read from previous channel). BL Build: 3359, Firmware 01.01.00/01/002211, Fs = 100 [Hz]."meas_parallel.py_2026-03-12_19-39-08.log"
 2026-03-12T19:43:45.611 - INFO - Quick test was performed. Some samples are stuck (are read from previous channel). BL Build: 3359, Firmware 01.01.00/01/002211, Fs = 25 [Hz]."meas_parallel.py_2026-03-12_19-43-45.log"
-

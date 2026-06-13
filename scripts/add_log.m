@@ -75,8 +75,38 @@ fclose(fid);
 string_to_add = string(split(string_to_add,newline));
 string_to_add = string_to_add(contains(string_to_add," - INFO - Started with filename: "));
 string_to_add = extractBefore(string_to_add,34);
-
+task = fname_with_ext;
 switch fname_with_ext
+    % legacy
+    case "rotplateVert25Hz_.py_2026-02-10_11-56-12.log"
+    case "rotplateVert100Hz_2026-02-10_11-33-47.log"
+    case "rotplateHor100Hz_2026-02-10_10-42-51.log"
+    case "rotplateHor25Hz_2026-02-10_10-21-17.log"
+    case "cubeCalib_L322R016_2026-02-10_17-24-17.log"
+    case "meas_parallel.py_2026-02-11_14-36-52.log"
+    case "meas_parallel.py_2026-03-01_17-08-38.log"
+    case "cube_calib_2026-03-01_18-09-26.log"
+    case "meas_parallel.py_2026-03-05_19-35-04.log"
+    case "indoor_cycling30min_and_8h_rest_2026-03-08_22-33-33.log"
+    case {"thermal_calib_2026-02-09_11-21-43.log", "meas_parallel.py_2026-03-12_09-05-02.log", "meas_parallel.py_2026-03-15_21-56-56.log", "meas_parallel.py_2026-03-20_11-04-52.log", "meas_parallel.py_2026-05-09_16-49-26.log"}
+        task = "thermal_calib";
+    case {"meas_parallel.py_2026-03-12_19-39-08.log", "meas_parallel.py_2026-03-12_19-43-45.log"}
+    case {"meas_parallel.py_2026-03-14_17-59-48.log", "meas_parallel.py_2026-03-16_15-02-48.log"}
+    case {"meas_parallel.py_2026-05-10_16-32-59.log", "meas_parallel.py_2026-05-09_12-37-03.log", "meas_parallel.py_2026-05-09_12-25-35.log"}
+    case {"meas_parallel.py_2026-05-09_12-50-23.log", "meas_parallel.py_2026-03-09_12-34-54.log", "meas_parallel.py_2026-03-14_17-49-22.log", "meas_parallel.py_2026-03-16_14-55-24.log"}
+        task = "cube_calib";
+    case {"meas_axles_and_GSV.py_2026-03-10_19-33-29.log", "meas_axles_and_GSV.py_2026-03-13_17-30-09.log", "meas_axles_and_GSV.py_2026-03-14_18-42-09.log", "meas_axles_and_GSV.py_2026-03-16_21-51-46.log", "meas_axles_and_GSV.py_2026-03-16_22-44-16.log",...
+            "meas_axles_and_GSV.py_2026-03-19_11-02-34.log", "meas_axles_and_GSV.py_2026-03-21_10-53-59.log", "meas_axles_and_GSV.py_2026-03-21_11-37-43.log" "meas_axles_and_GSV.py_2026-05-09_14-59-14.log", "force_calib_combined_2026-05-09_16-26-47.log"}
+        task = "force_calib";
+    case {"meas_parallel.py_2026-03-09_19-25-51.log" ,"meas_parallel.py_2026-03-13_12-23-57.log","meas_parallel.py_2026-05-23_22-58-42.log"}
+        task = "preaging";
+    case "indoor_2pedals_Chemnitz__2026-04-05_21-31-02.log"
+    otherwise
+        task = "unknown"
+end
+
+
+switch task
     case "rotplateVert25Hz_.py_2026-02-10_11-56-12.log"
         for axle_i = 1:length(reader.data)
             lines = readlines(history_paths(axle_i));
@@ -207,13 +237,12 @@ switch fname_with_ext
             assert(all(~contains(lines,fname_with_ext)),"Duplicated string?");
             writelines(string_to_add+"A test was performed. 30 minutes indoor cycling and 8 hours wait. Fs = 100 Hz. "+'"'+fname_with_ext+'"', history_paths(axle_i), WriteMode="append")
         end
-    case {"thermal_calib_2026-02-09_11-21-43.log", "meas_parallel.py_2026-03-12_09-05-02.log", "meas_parallel.py_2026-03-15_21-56-56.log", "meas_parallel.py_2026-03-20_11-04-52.log", "meas_parallel.py_2026-05-09_16-49-26.log"}
+    case "thermal_calib"
         for axle_i = 1:length(reader.data)
             assert(all(~contains(AxleCalibrator.read_history(IDs(axle_i)),fname_with_ext)),"Duplicated string?");
             AxleCalibrator.add2history(IDs(axle_i),string_to_add+"Temperature compensation was performed. "+'"'+fname_with_ext+'"')
         end
 
-        % 2026-02-04T21:53:39.499 - INFO - Preaging was performed. No logfile.
     case {"meas_parallel.py_2026-03-12_19-39-08.log", "meas_parallel.py_2026-03-12_19-43-45.log"}
         assert(isscalar(reader.data))
         axle_i=1;
@@ -257,20 +286,19 @@ switch fname_with_ext
             AxleCalibrator.add2history(IDs(axle_i),string_to_add+...
                 "Rotating plate calibration was performed. "+s+", "+'"'+fname_with_ext+'"')
         end
-    case {"meas_parallel.py_2026-05-09_12-50-23.log", "meas_parallel.py_2026-03-09_12-34-54.log", "meas_parallel.py_2026-03-14_17-49-22.log", "meas_parallel.py_2026-03-16_14-55-24.log"}
+    case "cube_calib"
         for axle_i = 1:length(reader.data)
             assert(all(~contains(AxleCalibrator.read_history(IDs(axle_i)),fname_with_ext)),"Duplicated string?");
             AxleCalibrator.add2history(IDs(axle_i),string_to_add+...
                 "Cube calibration was performed. "+'"'+fname_with_ext+'"')
         end
-    case {"meas_axles_and_GSV.py_2026-03-10_19-33-29.log", "meas_axles_and_GSV.py_2026-03-13_17-30-09.log", "meas_axles_and_GSV.py_2026-03-14_18-42-09.log", "meas_axles_and_GSV.py_2026-03-16_21-51-46.log", "meas_axles_and_GSV.py_2026-03-16_22-44-16.log",...
-            "meas_axles_and_GSV.py_2026-03-19_11-02-34.log", "meas_axles_and_GSV.py_2026-03-21_10-53-59.log", "meas_axles_and_GSV.py_2026-03-21_11-37-43.log" "meas_axles_and_GSV.py_2026-05-09_14-59-14.log", "force_calib_combined_2026-05-09_16-26-47.log"}
+    case "force_calib"
         assert(isscalar(reader.data))
         axle_i=1;
         assert(all(~contains(AxleCalibrator.read_history(IDs(axle_i)),fname_with_ext)),"Duplicated string?");
         AxleCalibrator.add2history(IDs(axle_i),string_to_add+...
             "Force calibration was performed. 3 PCOs, 3 levels. "+'"'+fname_with_ext+'"')
-    case {"meas_parallel.py_2026-03-09_19-25-51.log" ,"meas_parallel.py_2026-03-13_12-23-57.log","meas_parallel.py_2026-05-23_22-58-42.log"}
+    case "preaging"
         for axle_i = 1:length(reader.data)
             assert(all(~contains(AxleCalibrator.read_history(IDs(axle_i)),fname_with_ext)),"Duplicated string?");
             AxleCalibrator.add2history(IDs(axle_i),string_to_add+...

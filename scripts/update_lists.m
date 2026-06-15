@@ -1,4 +1,5 @@
 clc; clear all;
+assert(pwd == canonicalPath('.'),"Change directory to the script location")
 tableData = ID2MAC();
 clc;
 fid1 = fopen("../pedals_by_ID.md","w");

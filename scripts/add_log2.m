@@ -3,6 +3,7 @@ clc; clear all; %#ok<CLALL>
 assert(pwd == canonicalPath('.'),"Change directory to the script location")
 coefFolder = canonicalPath('..\coefficients');
 filenames = [
+"C:\Projects\PAX_calib_data\data\test_numato_preaging.py_2026-05-30_14-42-50.log"
 % "C:\Projects\PAX_calib_data\data\cube.py_2026-06-09_21-19-06.log"
 % "C:\Projects\PAX_calib_data\data\cube.py_2026-06-09_22-25-15.log"
 % "C:\Projects\PAX_calib_data\data\cube.py_2026-06-09_22-13-56.log"
@@ -11,7 +12,9 @@ filenames = [
 % "C:\Projects\PAX_calib_data\data\cube.py_2026-06-09_21-45-38.log"
 % "C:\Projects\PAX_calib_data\data\cube.py_2026-06-09_21-36-13.log"
 % "C:\Projects\PAX_calib_data\data\force.py_2026-06-12_14-36-49.log"
-"C:\Projects\PAX_calib_data\data\rotating.py_2026-06-13_17-11-50.log"
+% "C:\Projects\PAX_calib_data\data\rotating.py_2026-06-13_17-11-50.log"
+% "D:\temperature.py_2026-06-12_17-18-31.log"
+% "D:\preaging.py_2026-06-10_21-46-34.log"
     ]; 
 
 for filename = filenames'
@@ -30,12 +33,21 @@ reader.firmware_version_support ="2";
 reader.setup_CMD="1+";
 reader.read(true);
 %%
+% error("1"); % todo - uncomment assert((datetime('now')<datetime('13-Jun-2026 14:00:00')) || (SNs(axle_i)==reader.data{axle_i}.Props.UUT_SN),"Unexpected SN " +SNs(axle_i)+" for "+IDs(axle_i))
+%%
 IDs = string.empty();
 MACs = IDs;
 SNs = IDs;
 for axle_i = 1:length(reader.data)
+    if(isempty(ID2MAC([],reader.data{axle_i}.Props.MAC_Address)))
+        IDs(axle_i,1) = "";
+        MACs(axle_i,1)="";
+        SNs(axle_i,1)="";
+        warning("Unknown MAC: "+reader.data{axle_i}.Props.MAC_Address)
+        continue
+    end
     [IDs(axle_i,1), MACs(axle_i,1), SNs(axle_i,1)] = ID2MAC([],reader.data{axle_i}.Props.MAC_Address);
-    assert((datetime('now')<datetime('13-Jun-2026 14:00:00')) || (SNs(axle_i)==reader.data{axle_i}.Props.UUT_SN),"Unexpected SN " +SNs(axle_i)+" for "+IDs(axle_i))
+    % assert((datetime('now')<datetime('13-Jun-2026 14:00:00')) || (SNs(axle_i)==reader.data{axle_i}.Props.UUT_SN),"Unexpected SN " +SNs(axle_i)+" for "+IDs(axle_i))
     % coef_dir = coefFolder+"\"+IDs(axle_i);
     % history_paths(axle_i) = coefFolder+"\"+IDs(axle_i)+"\history.md";
     % createEmptyFileIfMissing(history_paths(axle_i));
@@ -72,7 +84,8 @@ switch fname_with_ext
         task = "force";
     case {"meas_parallel.py_2026-03-09_19-25-51.log" ,"meas_parallel.py_2026-03-13_12-23-57.log","meas_parallel.py_2026-05-23_22-58-42.log"}
         task = "preaging";
-    case "indoor_2pedals_Chemnitz__2026-04-05_21-31-02.log"
+    case "test_numato_preaging.py_2026-05-30_14-42-50.log"
+        task  = "temperature";
     otherwise
         task = "unknown";
 end
@@ -84,6 +97,10 @@ if(task=="unknown")
             task = "force";
         case "rotating"
             task = "rotating";
+        case "temperature"
+            task  = "temperature";
+        case "preaging"
+            task  = "preaging";
         otherwise
             error("unexpected fname_with_ext: "+fname_with_ext)
     end
@@ -220,8 +237,12 @@ switch task
     %         assert(all(~contains(lines,fname_with_ext)),"Duplicated string?");
     %         writelines(string_to_add+"A test was performed. 30 minutes indoor cycling and 8 hours wait. Fs = 100 Hz. "+'"'+fname_with_ext+'"', history_paths(axle_i), WriteMode="append")
     %     end
-    case "thermal_calib"
+    case "temperature"
         for axle_i = 1:length(reader.data)
+            if(strlength(IDs(axle_i))==0)
+                warning("Unknown MAC")
+                continue
+            end
             assert(all(~contains(AxleCalibrator.read_history(IDs(axle_i)),fname_with_ext)),"Duplicated string?");
             AxleCalibrator.add2history(IDs(axle_i),string_to_add+"Temperature compensation was performed. "+'"'+fname_with_ext+'"')
         end
@@ -290,6 +311,10 @@ switch task
             "Force calibration was performed. "+'"'+fname_with_ext+'"')
     case "preaging"
         for axle_i = 1:length(reader.data)
+            if(strlength(IDs(axle_i))==0)
+                warning("Unknown MAC")
+                continue
+            end
             assert(all(~contains(AxleCalibrator.read_history(IDs(axle_i)),fname_with_ext)),"Duplicated string?");
             AxleCalibrator.add2history(IDs(axle_i),string_to_add+...
                 "Preaging was performed. "+'"'+fname_with_ext+'"')

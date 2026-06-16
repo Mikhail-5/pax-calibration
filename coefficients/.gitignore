@@ -1,0 +1,12 @@
+**.drawio.bkp
+**.drawio.dtmp
+**/~$*.docx
+**/~WRL*.tmp
+**/__pycache__
+/model and scripts/factory_calibration/tmp/**
+/model and scripts/meas/meas**
+/model and scripts/verifications/add_all_pathes.m
+/model and scripts/meas/TDMS_bd.mat
+
+/coefficients/PDX1-*/*CoefFile.tdms
+# /coefficients/PDX1-*/*PDX*.bin

@@ -7,6 +7,5 @@
 /model and scripts/meas/meas**
 /model and scripts/verifications/add_all_pathes.m
 /model and scripts/meas/TDMS_bd.mat
-
-/coefficients/PDX1-*/*CoefFile.tdms
-# /coefficients/PDX1-*/*PDX*.bin
+/PDX1-*/*CoefFile.tdms
+# /PDX1-*/*PDX*.bin

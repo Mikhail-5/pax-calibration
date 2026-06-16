@@ -11,8 +11,10 @@ clc; clear all;
 
 values = [
 % "PDX1-R001645" "HB mailfunction was discovered during temperature compensation. HBYI = -Inf, HBXI fluctuates" "now"
-"PDX1-R001637" "Preaging was performed but not recorded due to improper installation. ""preaging.py_2026-06-10_21-46-34.log"""                     "2026-06-10T21:46:34.865"
-"PDX1-R001637" "Temperature compensation was not recorded due to improper installation. ""temperature.py_2026-06-12_17-18-31.log"""  "2026-06-12T17:18:32.451"
+% "PDX1-R001637" "Preaging was performed but not recorded due to improper installation. ""preaging.py_2026-06-10_21-46-34.log"""                     "2026-06-10T21:46:34.865"
+% "PDX1-R001637" "Temperature compensation was not recorded due to improper installation. ""temperature.py_2026-06-12_17-18-31.log"""  "2026-06-12T17:18:32.451"
+"PDX1-R001727" "Mikhail took it to Chemnitz" "now"
+"PDX1-L001641" "Mikhail took it to Chemnitz" "now"
 ];
 IDs = values(:,1)';
 messages = values(:,2)';

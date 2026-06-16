@@ -3,7 +3,7 @@ clc; clear all; %#ok<CLALL>
 assert(pwd == canonicalPath('.'),"Change directory to the script location")
 coefFolder = canonicalPath('..\coefficients');
 filenames = [
-"C:\Projects\PAX_calib_data\data\test_numato_preaging.py_2026-05-30_14-42-50.log"
+% "C:\Projects\PAX_calib_data\data\test_numato_preaging.py_2026-05-30_14-42-50.log"
 % "C:\Projects\PAX_calib_data\data\cube.py_2026-06-09_21-19-06.log"
 % "C:\Projects\PAX_calib_data\data\cube.py_2026-06-09_22-25-15.log"
 % "C:\Projects\PAX_calib_data\data\cube.py_2026-06-09_22-13-56.log"
@@ -15,6 +15,12 @@ filenames = [
 % "C:\Projects\PAX_calib_data\data\rotating.py_2026-06-13_17-11-50.log"
 % "D:\temperature.py_2026-06-12_17-18-31.log"
 % "D:\preaging.py_2026-06-10_21-46-34.log"
+"C:\Projects\PAX_calib_data\data\force_axis_control_gui.py_2026-06-16_08-27-14.log"
+"C:\Projects\PAX_calib_data\data\force_axis_control_gui.py_2026-06-16_07-58-10.log"
+"C:\Projects\PAX_calib_data\data\force_axis_control_gui.py_2026-06-16_10-05-18.log"
+"C:\Projects\PAX_calib_data\data\force_axis_control_gui.py_2026-06-16_09-44-46.log"
+"C:\Projects\PAX_calib_data\data\force_axis_control_gui.py_2026-06-16_09-23-12.log"
+"C:\Projects\PAX_calib_data\data\force_axis_control_gui.py_2026-06-16_08-51-06.log"
     ]; 
 
 for filename = filenames'
@@ -93,7 +99,7 @@ if(task=="unknown")
     switch extractBefore(fname_with_ext,".")
         case "cube"
             task = "cube";
-        case "force"
+        case {"force", "force_axis_control_gui"}
             task = "force";
         case "rotating"
             task = "rotating";

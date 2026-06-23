@@ -9,3 +9,5 @@
 /model and scripts/meas/TDMS_bd.mat
 /PDX1-*/*CoefFile.tdms
 # /PDX1-*/*PDX*.bin
+/PDX1-L0000*
+/PDX1-R0000*
